@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>clientEdit</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ebebeb;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .post-wrapper {
+            padding: 15px;
+            border: 1px solid #333;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            background-color: #2a2a2a;
+            width: 600px;
+            max-width: 100%;
+        }
+
+        a {
+            text-decoration: none;
+            color: #1DA1F2;
+            font-size: 18px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #ebebeb;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 15px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #F7F9FA;
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: block;
+        }
+
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #FFF;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="submit"]:active {
+            background-color: #004392;
+        }
+
+        h2 {
+            color: #ebebeb;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        label {
+            margin-left:50px;
+        }
+        textarea#text {
+            width: 80%;
+            height: 150px;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #F7F9FA;
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+            font-family: Arial, sans-serif;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+    <body>
+<div class="post-wrapper">
+    <h2>Edit Note</h2>
+<form th:method="PATCH" th:action="@{/post/{id}(id=${post.getId()})}" th:object="${post}">
+
+
+    <label for="title">enter title</label>
+    <input type="text" th:field="*{title}" id="title"/>
+
+    <br/>
+    <label for="text">enter text</label>
+    <textarea th:field="*{text}" id="text" rows="5"></textarea>
+
+    <br/>
+    <input type="submit" value="Update!"/>
+</form>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ebebeb;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .post-wrapper {
+            width: 600px;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .empty-state {
+            padding: 40px;
+            border: 1px dashed #4f4f4f;
+            border-radius: 10px;
+            background-color: #2a2a2a;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .empty-state h2 {
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        .empty-state p {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #bbbbbb;
+        }
+        .empty-state a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #FFF;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+        .empty-state a.button:hover {
+            background-color: #0056b3;
+        }
+        .empty-state a.button:active {
+            background-color: #004392;
+        }
+
+        .post-container {
+            padding: 15px;
+            border: 1px solid #4f4f4f;
+            border-radius: 10px;
+            background-color: #2a2a2a;
+            margin-bottom: 20px;
+        }
+        .post-author {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .post-text {
+            background-color: #F7F9FA;
+            color: black;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .actions {
+            text-align: right;
+        }
+        .actions input[type="submit"] {
+            background-color: #007BFF;
+            color: #FFF;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+        .actions input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .actions input[type="submit"]:active {
+            background-color: #004392;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, #333, #1DA1F2, #333);
+            margin: 20px 0;
+        }
+        a.add-link {
+            text-decoration: none;
+            color: #1DA1F2;
+            font-size: 18px;
+        }
+        a.add-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="post-wrapper">
+
+    <div th:if="${posts.empty}" class="empty-state">
+        <h2>No notes yet</h2>
+        <p>It looks like you haven't added any notes. Start by creating your first one!</p>
+        <a th:href="@{/post/new}" class="button">Add Your First Note</a>
+    </div>
+
+    <div th:unless="${posts.empty}" th:each="post : ${posts}" class="post-container">
+        <div class="post-author" th:text="${post.title}">Post Title</div>
+        <div class="post-text" th:text="${post.text}">Post content...</div>
+        <div class="actions">
+            <form th:action="@{/post/edit/{id}(id=${post.id})}" method="get" style="display:inline;">
+                <input type="submit" value="Edit!"/>
+            </form>
+            <form th:action="@{/post/{id}(id=${post.id})}" method="post" style="display:inline;">
+                <input type="hidden" name="_method" value="delete"/>
+                <input type="submit" value="Delete!"/>
+            </form>
+        </div>
+    </div>
+
+    <hr/>
+    <a th:href="@{/post/new}" class="add-link">Add new Note</a>
+</div>
+</body>
+</html>

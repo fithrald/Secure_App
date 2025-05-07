@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Two-Factor Authentication Setup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ebebeb;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-wrapper {
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 10px;
+            background-color: #2a2a2a;
+            width: 400px;
+            max-width: 100%;
+        }
+
+        h2 {
+            color: #ebebeb;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        img {
+            display: block;
+            margin: 0 auto 20px auto;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #ebebeb;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: #F7F9FA;
+            color: black;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #FFF;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="submit"]:active {
+            background-color: #004392;
+        }
+    </style>
+</head>
+<body>
+<div class="form-wrapper">
+    <h2>Set up Two-Factor Authentication</h2>
+    <p>Scan the QR code below with your Google Authenticator app:</p>
+    <img th:src="'data:image/png;base64,' + ${qrCode}" alt="QR Code">
+
+    <div th:if="${error}" class="error-message">
+        <p th:text="${error}"></p>
+    </div>
+
+    <form th:action="@{/2fa/verify-otp}" method="post">
+        <input type="hidden" th:value="${person.username}" name="username">
+        <input type="hidden" th:value="${qrCode}" name="qrCode">
+        <label for="code">Enter the code from your app:</label>
+        <input type="text" id="code" name="code" required>
+        <input type="submit" value="Verify">
+    </form>
+</div>
+</body>
+</html>
