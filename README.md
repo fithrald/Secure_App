@@ -239,6 +239,6 @@
     Jsoup – офіційнa документація для очищення HTML (https://jsoup.org/)
     Bucket4j – документація для rate‐limiting (https://bucket4j.com/)
     PostgreSQL – офіційна документація (https://www.postgresql.org/)
-    StackOverflow – практичні поради та обговорення специфічних помилок
+
 
 
